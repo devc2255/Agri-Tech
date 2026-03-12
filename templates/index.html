@@ -14,52 +14,63 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
 
-    /* Layout */
-    .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); padding: 1.5rem; display: flex; flex-direction: column; }
+    /* Mobile Header & Hamburger Menu */
+    .mobile-header { display: none; background: var(--bg-sidebar); padding: 1rem; border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; }
+    .hamburger { background: none; border: none; color: var(--primary); cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger div { width: 25px; height: 3px; background-color: var(--primary); border-radius: 2px; transition: all 0.3s ease; }
+
+    /* Sidebar */
+    .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); padding: 1.5rem; display: flex; flex-direction: column; transition: transform 0.3s ease; z-index: 1000; }
     .brand { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 12px; margin-bottom: 2.5rem; }
     .nav-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 0.85rem 1rem; border-radius: 0.5rem; border: none; background: transparent; color: var(--text-muted); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 0.5rem; text-align: left; }
     .nav-btn:hover, .nav-btn.active { background: rgba(16, 185, 129, 0.1); color: var(--primary); }
 
-    .main-content { flex: 1; padding: 2rem 3rem; overflow-y: auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    /* Overlay for mobile sidebar */
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
+
+    /* Main Content */
+    .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
     .badge { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; }
     .badge-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
 
-    /* Cards & Grids */
+    /* Sections & Grids */
     .section { display: none; animation: fadeIn 0.3s ease; }
     .section.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
     .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+    
     .panel { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }
+    .panel h2 { font-size: 1.25rem; margin-bottom: 1rem; }
     .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); }
 
     /* Inputs & UI Elements */
-    input, select { background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: 0.5rem; outline: none; flex: 1; }
+    input, select { background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: 0.5rem; outline: none; width: 100%; margin-bottom: 10px; }
     input:focus, select:focus { border-color: var(--primary); }
-    button { padding: 0.75rem 1.25rem; border: none; border-radius: 0.5rem; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
+    button { padding: 0.75rem 1.25rem; border: none; border-radius: 0.5rem; font-weight: bold; cursor: pointer; transition: opacity 0.2s; width: 100%; }
     button:hover { opacity: 0.8; }
     .btn-primary { background: var(--primary); color: #000; }
     .btn-danger { background: var(--danger); color: #fff; }
 
+    /* Adjuster Buttons */
+    .adjust-group { display: flex; align-items: center; background: var(--bg-dark); border-radius: 0.5rem; border: 1px solid var(--border); overflow: hidden; margin-bottom: 10px; }
+    .adjust-group button { background: transparent; color: var(--text-main); padding: 0.5rem; width: auto; border-radius: 0; }
+    .adjust-group button:hover { background: rgba(255,255,255,0.1); }
+    .adjust-group input { border: none; border-radius: 0; text-align: center; background: transparent; padding: 0.5rem; margin-bottom: 0; flex: 1; }
+
     /* Tables */
-    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .table-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 500px; }
     th { text-align: left; padding: 1rem; color: var(--text-muted); border-bottom: 1px solid var(--border); font-size: 0.85rem; }
     td { padding: 1rem; border-bottom: 1px solid rgba(51, 65, 85, 0.5); vertical-align: middle; }
-    
-    .tag { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: bold; }
+    .tag { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: bold; display: inline-block; }
     .tag.grain { background: rgba(59,130,246,0.2); color: #60a5fa; }
     .tag.pulse { background: rgba(244,63,94,0.2); color: #fb7185; }
     .tag.legume { background: rgba(16,185,129,0.2); color: #34d399; }
-
-    /* Adjuster Buttons - Now Supports Direct Typing */
-    .adjust-group { display: flex; align-items: center; background: var(--bg-dark); border-radius: 0.5rem; border: 1px solid var(--border); overflow: hidden; }
-    .adjust-group button { background: transparent; color: var(--text-main); padding: 0.5rem 0.8rem; border-radius: 0; }
-    .adjust-group button:hover { background: rgba(255,255,255,0.1); }
-    .adjust-group input { border: none; border-radius: 0; width: 60px; text-align: center; background: transparent; padding: 0.5rem; }
-    .adjust-group input:focus { background: rgba(255,255,255,0.05); }
 
     /* Toast */
     #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
@@ -67,113 +78,159 @@
     .toast.error { border-color: var(--danger); }
     @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     @keyframes fadeOut { to { opacity: 0; display: none; } }
+
+    /* Media Queries for Mobile/Tablet */
+    @media (max-width: 768px) {
+      .mobile-header { display: flex; }
+      .sidebar { position: fixed; top: 0; bottom: 0; left: 0; transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { padding: 1rem; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.5rem; }
+      .adjust-group { flex-direction: row; }
+    }
   </style>
 </head>
 <body>
 
-  <aside class="sidebar">
+  <!-- Overlay for Mobile Sidebar -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
     <div class="brand">🌾 AgriVault</div>
     <button class="nav-btn active" onclick="switchTab('dashboard', this)">Dashboard</button>
     <button class="nav-btn" onclick="switchTab('inventory', this)">Inventory / Reports</button>
     <button class="nav-btn" onclick="switchTab('settings', this)">System Settings</button>
   </aside>
 
-  <main class="main-content">
-    <div class="header">
-      <h1 id="page-title">Dashboard</h1>
-      <div class="badge"><div class="badge-dot"></div> System Secure (Local)</div>
+  <div class="main-wrapper">
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+      <div class="brand" style="margin: 0;">🌾 AgriVault</div>
+      <button class="hamburger" onclick="toggleSidebar()">
+        <div></div><div></div><div></div>
+      </button>
     </div>
 
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="section active">
-      <div class="grid-4">
-        <div class="panel"><h3>Total Capacity</h3><div class="stat-value" id="dash-capacity">0T</div></div>
-        <div class="panel"><h3>Total Stored</h3><div class="stat-value" id="dash-stored">0T</div></div>
-        <div class="panel"><h3>Available Space</h3><div class="stat-value" id="dash-free" style="color:var(--warning);">0T</div></div>
-        <div class="panel"><h3>Catalog Types</h3><div class="stat-value" id="dash-items" style="color:var(--text-main);">0</div></div>
+    <main class="main-content">
+      <div class="header">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="badge"><div class="badge-dot"></div> System Secure (Local)</div>
       </div>
 
-      <div class="grid-3">
-        <!-- Silos Dynamic View -->
-        <div class="panel">
-          <h2>Silo Telemetry</h2>
-          <div id="silo-container" style="max-height: 250px; overflow-y: auto;"></div>
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="section active">
+        <div class="grid-4">
+          <div class="panel"><h3>Total Capacity</h3><div class="stat-value" id="dash-capacity">0T</div></div>
+          <div class="panel"><h3>Total Stored</h3><div class="stat-value" id="dash-stored">0T</div></div>
+          <div class="panel"><h3>Available Space</h3><div class="stat-value" id="dash-free" style="color:var(--warning);">0T</div></div>
+          <div class="panel"><h3>Catalog Types</h3><div class="stat-value" id="dash-items" style="color:var(--text-main);">0</div></div>
         </div>
-        <!-- Terminal Entry -->
-        <div class="panel">
-          <h2>Terminal Entry</h2>
-          <select id="harvest-select" style="width:100%; margin: 10px 0;"></select>
-          <div class="adjust-group" style="width:100%; margin-bottom:10px;">
-            <button onclick="adjustHarvest(-10)">-10</button>
-            <input type="number" id="harvest-amount" value="10" min="0.1" step="0.1" style="flex:1;">
-            <button onclick="adjustHarvest(10)">+10</button>
+
+        <!-- Telemetry and Terminal Grid -->
+        <div class="grid-2">
+          <!-- Silos Dynamic View -->
+          <div class="panel">
+            <h2>Silo Telemetry</h2>
+            <div id="silo-container" style="max-height: 250px; overflow-y: auto; padding-right: 5px;"></div>
           </div>
-          <button class="btn-primary" style="width:100%;" onclick="executeHarvest()">Execute Log</button>
+          <!-- Terminal Entry -->
+          <div class="panel">
+            <h2>Terminal Entry</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">Execute manual harvest logging.</p>
+            <select id="harvest-select"></select>
+            <div class="adjust-group">
+              <button onclick="adjustHarvest(-10)">-10</button>
+              <input type="number" id="harvest-amount" value="10" min="0.1" step="0.1">
+              <button onclick="adjustHarvest(10)">+10</button>
+            </div>
+            <button class="btn-primary" onclick="executeHarvest()">Execute Log</button>
+          </div>
         </div>
-        <!-- Immutable Audit Log -->
+
+        <!-- Immutable Audit Log (Placed below the grid) -->
         <div class="panel" style="background: #000;">
           <h2 style="color: #10b981; font-family: monospace; font-size: 1.1rem;">> Audit_Logs</h2>
           <div id="audit-logs" style="height: 200px; overflow-y: auto; font-family: monospace; font-size: 0.8rem; color: #a3a3a3; display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- INVENTORY -->
-    <section id="inventory" class="section">
-      <div class="panel">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-          <h2>Inventory Database</h2>
-          <div style="display:flex; gap: 10px;">
-            <input type="text" id="search-input" placeholder="Filter..." onkeyup="filterInventory()" style="max-width: 200px;">
-            <a href="/api/export" download><button class="btn-primary">Export CSV</button></a>
+      <!-- INVENTORY -->
+      <section id="inventory" class="section">
+        <div class="panel">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 10px; margin-bottom:1rem;">
+            <h2>Inventory Database</h2>
+            <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+              <input type="text" id="search-input" placeholder="Filter..." onkeyup="filterInventory()" style="margin: 0; min-width: 150px;">
+              <a href="/api/export" download style="text-decoration: none;"><button class="btn-primary" style="margin: 0;">Export CSV</button></a>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead><tr><th>ID</th><th>Crop/Item</th><th>Class</th><th>Volume (T)</th><th>Max Capacity</th></tr></thead>
+              <tbody id="inventory-table-body"></tbody>
+            </table>
           </div>
         </div>
-        <table>
-          <thead><tr><th>ID</th><th>Crop/Item</th><th>Class</th><th>Volume (T)</th><th>Max Capacity</th></tr></thead>
-          <tbody id="inventory-table-body"></tbody>
-        </table>
-      </div>
-    </section>
+      </section>
 
-    <!-- SETTINGS -->
-    <section id="settings" class="section">
-      <div class="grid-2">
-        <div class="panel">
-          <h2>Register New Silo / Crop</h2>
-          <div style="display:flex; flex-direction:column; gap:12px; margin-top:1rem;">
+      <!-- SETTINGS -->
+      <section id="settings" class="section">
+        <div class="grid-2">
+          <div class="panel">
+            <h2>Register New Silo / Crop</h2>
             <input type="text" id="add-name" placeholder="Item Designation (e.g. Winter Oats)">
             <select id="add-category">
               <option value="Grain">Grain</option><option value="Pulse">Pulse</option><option value="Legume">Legume</option>
             </select>
-            <div style="display:flex; gap:10px;">
-              <input type="number" id="add-qty" placeholder="Initial Stock (T)" min="0">
-              <input type="number" id="add-max" placeholder="Max Capacity (T)" min="1">
+            <div style="display:flex; gap:10px; margin-bottom: 10px;">
+              <input type="number" id="add-qty" placeholder="Initial Stock (T)" min="0" style="margin: 0;">
+              <input type="number" id="add-max" placeholder="Max Capacity (T)" min="1" style="margin: 0;">
             </div>
             <button class="btn-primary" onclick="submitNewItem()">Register to Database</button>
           </div>
-        </div>
 
-        <div class="panel" style="overflow-x:auto;">
-          <h2>Database Management</h2>
-          <table>
-            <thead><tr><th>Item</th><th>Stock Adjust (T)</th><th>Action</th></tr></thead>
-            <tbody id="settings-table-body"></tbody>
-          </table>
+          <div class="panel">
+            <h2>Database Management</h2>
+            <div class="table-container">
+              <table>
+                <thead><tr><th>Item</th><th>Stock Adjust (T)</th><th>Action</th></tr></thead>
+                <tbody id="settings-table-body"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
   <div id="toast-container"></div>
 
   <script>
     let _data = [];
 
+    // Mobile Sidebar Toggle
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      sidebar.classList.toggle('open');
+      overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+    }
+
     function switchTab(tabId, btn) {
       document.querySelectorAll('.section, .nav-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       btn.classList.add('active');
       document.getElementById('page-title').textContent = tabId.charAt(0).toUpperCase() + tabId.slice(1);
+      
+      // Close sidebar on mobile after clicking
+      if (window.innerWidth <= 768) {
+        toggleSidebar();
+      }
     }
 
     function showToast(msg, err=false) {
@@ -189,7 +246,6 @@
         
         buildDashboard(); buildInventory(); buildSettings();
         
-        // Render Logs
         const logBox = document.getElementById('audit-logs'); logBox.innerHTML = '';
         logs.forEach(l => {
           const time = new Date(l.timestamp + 'Z').toLocaleTimeString();
@@ -207,7 +263,6 @@
         tCap += i.max_capacity; tStored += i.current_amount;
         const pct = (i.current_amount / i.max_capacity) * 100;
         
-        // Dynamic Silos based on Inventory
         silos.innerHTML += `
           <div style="margin-bottom:1rem; padding: 10px; border: 1px solid var(--border); border-radius: 8px;">
             <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
@@ -248,18 +303,17 @@
     function buildSettings() {
       const tbody = document.getElementById('settings-table-body'); tbody.innerHTML = '';
       _data.forEach(i => {
-        // Allows direct typing logic via onchange
         tbody.innerHTML += `
           <tr>
             <td>${i.item_name}</td>
             <td>
-              <div class="adjust-group" style="width:120px;">
+              <div class="adjust-group" style="width:120px; margin: 0;">
                 <button onclick="updateStock(${i.id}, ${i.current_amount - 1})">-</button>
                 <input type="number" value="${i.current_amount}" onchange="updateStock(${i.id}, this.value)">
                 <button onclick="updateStock(${i.id}, ${i.current_amount + 1})">+</button>
               </div>
             </td>
-            <td><button class="btn-danger" style="padding:0.4rem 0.8rem;" onclick="removeStock(${i.id})">Drop</button></td>
+            <td><button class="btn-danger" style="padding:0.4rem 0.8rem; width: auto;" onclick="removeStock(${i.id})">Drop</button></td>
           </tr>`;
       });
     }
