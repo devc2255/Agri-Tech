@@ -51,91 +51,144 @@
 
     /* ─── SIDEBAR ─── */
     .sidebar {
-      width: 240px;
+      width: 72px;
       flex-shrink: 0;
       background: var(--bg-sidebar);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
+      align-items: center;
       padding: 0;
       z-index: 100;
       transition: transform 0.3s ease;
     }
 
     .brand-wrap {
-      padding: 28px 24px 24px;
+      padding: 20px 0 16px;
       border-bottom: 1px solid var(--border);
-    }
-    .brand {
+      width: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .brand-icon {
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       background: var(--primary);
-      border-radius: 8px;
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-    }
-    .brand-text {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.02em;
-    }
-    .brand-sub {
-      font-size: 0.7rem;
-      color: var(--text-3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 2px;
-      font-weight: 500;
+      font-size: 20px;
+      flex-shrink: 0;
     }
 
+
+    /* Dot nav */
     .nav {
-      padding: 16px 12px;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 0;
+      gap: 8px;
+      position: relative;
     }
-    .nav-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+
+    /* Vertical connecting line */
+    .nav::before {
+      content: '';
+      position: absolute;
+      top: 44px;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      background: var(--border);
+    }
+
+    .nav-dot {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .nav-dot-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 2px solid var(--border-lt);
+      background: var(--bg-sidebar);
       color: var(--text-3);
-      padding: 0 10px;
-      margin: 8px 0 6px;
-    }
-    .nav-btn {
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: none;
-      background: transparent;
-      color: var(--text-2);
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.15s;
-      text-align: left;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      position: relative;
     }
-    .nav-btn .icon { font-size: 1rem; width: 20px; text-align: center; }
-    .nav-btn:hover { background: var(--primary-bg); color: var(--text); }
-    .nav-btn.active {
-      background: var(--primary-bg);
+
+    .nav-dot-btn:hover {
+      border-color: var(--primary);
       color: var(--primary);
-      border-left: 2px solid var(--primary);
-      padding-left: 10px;
+      background: var(--primary-bg);
+      transform: scale(1.1);
+    }
+
+    .nav-dot-btn.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #0e0c08;
+      box-shadow: 0 0 0 4px rgba(200,168,75,0.15);
+    }
+
+    /* Tooltip label on hover */
+    .nav-dot-btn::after {
+      content: attr(data-label);
+      position: absolute;
+      left: calc(100% + 14px);
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-card);
+      border: 1px solid var(--border-lt);
+      color: var(--text);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s, transform 0.15s;
+      transform: translateY(-50%) translateX(-4px);
+      z-index: 200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .nav-dot-btn:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    /* Active indicator bar to the right */
+    .nav-dot-btn.active::before {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 2px;
     }
 
     .sidebar-footer {
-      padding: 16px 24px;
+      padding: 16px 0 20px;
       border-top: 1px solid var(--border);
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
     .status-pill {
       display: flex;
@@ -207,9 +260,35 @@
       flex-wrap: wrap;
       gap: 12px;
     }
+    .page-header-left { display: flex; flex-direction: column; gap: 2px; }
+    .page-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .breadcrumb-app {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .breadcrumb-sep {
+      color: var(--text-3);
+      font-size: 0.75rem;
+    }
+    .breadcrumb-page {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
     .page-title {
       font-family: var(--serif);
-      font-size: 1.75rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: var(--text);
       line-height: 1.1;
@@ -217,13 +296,21 @@
     .page-subtitle {
       color: var(--text-3);
       font-size: 0.8rem;
-      margin-top: 3px;
+      margin-top: 4px;
       font-weight: 400;
     }
     .page-date {
       font-size: 0.75rem;
       color: var(--text-3);
       font-family: var(--mono);
+      text-align: right;
+      line-height: 1.8;
+    }
+    .page-divider {
+      margin: 16px 32px 0;
+      height: 1px;
+      background: linear-gradient(to right, var(--primary), var(--border), transparent);
+      opacity: 0.5;
     }
 
     .content {
@@ -524,28 +611,36 @@
     /* ─── TOAST ─── */
     #toast-root {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 9999;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 8px;
+      pointer-events: none;
     }
     .toast {
       background: var(--bg-card);
       border: 1px solid var(--border-lt);
-      border-left: 3px solid var(--primary);
+      border-bottom: 3px solid var(--primary);
       color: var(--text);
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      min-width: 240px;
-      box-shadow: var(--shadow);
-      animation: slideIn 0.25s ease, fadeOut 0.3s 2.5s ease forwards;
+      padding: 12px 20px 12px 16px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1), fadeOut 0.3s 2.5s ease forwards;
     }
-    .toast.err { border-left-color: var(--red); }
-    @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes fadeOut { to { opacity: 0; transform: translateY(4px); } }
+    .toast.err { border-bottom-color: var(--red); }
+    @keyframes toastIn { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeOut { to { opacity: 0; transform: translateY(6px); } }
 
     /* ─── DIVIDER ─── */
     .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
@@ -559,6 +654,7 @@
       .sidebar {
         position: fixed;
         top: 0; bottom: 0; left: 0;
+        width: 72px;
         transform: translateX(-100%);
       }
       .sidebar.open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.6); }
@@ -581,30 +677,25 @@
 <!-- ─── SIDEBAR ─── -->
 <aside class="sidebar" id="sidebar">
   <div class="brand-wrap">
-    <div class="brand">
-      <div class="brand-icon">🌾</div>
-      <div>
-        <div class="brand-text">AgriVault</div>
-        <div class="brand-sub">Grain Management</div>
-      </div>
-    </div>
+    <div class="brand-icon">🌾</div>
   </div>
 
   <nav class="nav">
-    <div class="nav-label">Navigation</div>
-    <button class="nav-btn active" onclick="switchTab('dashboard', this)">
-      <span class="icon">▦</span> Dashboard
-    </button>
-    <button class="nav-btn" onclick="switchTab('inventory', this)">
-      <span class="icon">◫</span> Inventory
-    </button>
-    <button class="nav-btn" onclick="switchTab('settings', this)">
-      <span class="icon">⚙</span> Settings
-    </button>
+    <div class="nav-dot">
+      <button class="nav-dot-btn active" data-label="Dashboard" onclick="switchTab('dashboard', this)" title="Dashboard">▦</button>
+    </div>
+    <div class="nav-dot">
+      <button class="nav-dot-btn" data-label="Inventory" onclick="switchTab('inventory', this)" title="Inventory">◫</button>
+    </div>
+    <div class="nav-dot">
+      <button class="nav-dot-btn" data-label="Settings" onclick="switchTab('settings', this)" title="Settings">⚙</button>
+    </div>
   </nav>
 
   <div class="sidebar-footer">
-    <div class="status-pill"><div class="pulse-dot"></div> System Online · Local</div>
+    <div class="status-pill" style="padding:8px; border-radius:50%; width:36px; height:36px; justify-content:center;">
+      <div class="pulse-dot"></div>
+    </div>
   </div>
 </aside>
 
@@ -620,12 +711,14 @@
 
   <!-- Page header -->
   <div class="page-header">
-    <div>
+    <div class="page-header-left">
+      <div class="page-breadcrumb"><span class="breadcrumb-app">AgriVault</span><span class="breadcrumb-sep">›</span><span class="breadcrumb-page" id="breadcrumb-page">Dashboard</span></div>
       <div class="page-title" id="page-title">Dashboard</div>
       <div class="page-subtitle" id="page-sub">Real-time silo telemetry &amp; harvest logging</div>
     </div>
     <div class="page-date" id="page-date"></div>
   </div>
+  <div class="page-divider"></div>
 
   <div class="content">
 
@@ -817,11 +910,12 @@
   };
   function switchTab(tab, btn) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-dot-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(tab).classList.add('active');
     btn.classList.add('active');
     document.getElementById('page-title').textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
     document.getElementById('page-sub').innerHTML = subtitles[tab] || '';
+    document.getElementById('breadcrumb-page').textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
     if (window.innerWidth <= 768) closeSidebar();
   }
 
@@ -868,7 +962,7 @@
         <div class="silo-item">
           <div class="silo-header">
             <span class="silo-name">${i.item_name}</span>
-            <span class="silo-nums">${i.current_amount} / ${i.max_capacity} T</span>
+            <span class="silo-nums">${(+i.current_amount).toFixed(1)} / ${i.max_capacity} T</span>
           </div>
           <div class="silo-track"><div class="silo-fill ${cls}" style="width:${pct}%"></div></div>
           <div class="silo-pct">${pct.toFixed(1)}%</div>
