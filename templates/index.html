@@ -15,9 +15,10 @@
     body { font-family: var(--font); background: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
 
     /* Mobile Header & Hamburger Menu */
-    .mobile-header { display: none; background: var(--bg-sidebar); padding: 1rem; border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; }
-    .hamburger { background: none; border: none; color: var(--primary); cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
-    .hamburger div { width: 25px; height: 3px; background-color: var(--primary); border-radius: 2px; transition: all 0.3s ease; }
+        /* Mobile Header & Hamburger Menu */
+    .mobile-header { display: none; background: var(--bg-sidebar); padding: 1rem; border-bottom: 1px solid var(--border); align-items: center; justify-content: flex-start; gap: 15px; }
+    .hamburger { background: none; border: none; color: var(--primary); cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 0; }
+
 
     /* Sidebar */
     .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); padding: 1.5rem; display: flex; flex-direction: column; transition: transform 0.3s ease; z-index: 1000; }
@@ -108,13 +109,14 @@
   </aside>
 
   <div class="main-wrapper">
-    <!-- Mobile Header -->
+        <!-- Mobile Header -->
     <div class="mobile-header">
-      <div class="brand" style="margin: 0;">🌾 AgriVault</div>
       <button class="hamburger" onclick="toggleSidebar()">
         <div></div><div></div><div></div>
       </button>
+      <div class="brand" style="margin: 0;">🌾 AgriVault</div>
     </div>
+
 
     <main class="main-content">
       <div class="header">
